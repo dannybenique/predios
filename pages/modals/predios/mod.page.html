@@ -1,0 +1,126 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header" style="background:#f9f9f9;padding:8px;">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 id="modPersTitulo" class="modal-title fontFlexoRegular">Datos del Predio</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row" id="modPersFormEdit">
+        <div class="box-body" style="padding-top:0;padding-bottom:0;">
+          <form class="form-horizontal" autocomplete="off">
+            <div class="col-md-6">
+              <div class="box-body">
+                <div class="form-group" style="margin-bottom:5px;">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="Codigo" style="background:#EEEEEE;font-weight:bold;">Codigo</span>
+                    <input id="txtPredio_Codigo" name="txtPredio_Codigo" type="text" class="form-control" readonly="readonly"/>
+                  </div>
+                </div>
+                <div id="divPredio_PersJuridica" class="form-group" style="margin-bottom:5px;">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="Personeria Juridica" style="background:#EEEEEE;font-weight:bold;">Pers. Jur.</span>
+                    <input id="txtPredio_PersJuridica" name="txtPredio_PersJuridica" type="text" class="form-control" placeholder="Persona Juridica..."/>
+                  </div>
+                </div>
+                <div id="divPredio_Mision" class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="Campo / Mision" style="background:#EEEEEE;font-weight:bold;">Mision</span>
+                    <input id="txtPredio_Mision" name="txtPredio_Mision" type="text" class="form-control" placeholder="Mision..."/>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-bottom:5px;">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="Clase de Predio" style="background:#EEEEEE;font-weight:bold;">Clase</span>
+                    <select id="cboPredio_Clases" name="cboPredio_Clases" class="form-control selectpicker"></select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="Distrito Misionero" style="background:#EEEEEE;font-weight:bold;">Dist. Misio.</span>
+                    <select id="cboPredio_DMisioneros" name="cboPredio_DMisioneros" class="form-control selectpicker"></select>
+                  </div>
+                </div>
+                <div id="divPredio_Nombre" class="form-group" style="margin-bottom:5px;">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="Nombre denominacional" style="background:#EEEEEE;font-weight:bold;">Nombre</span>
+                    <input id="txtPredio_Nombre" name="txtPredio_Nombre" type="text" class="form-control" placeholder="nombre..."/>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-bottom:5px;">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="telefonos" style="background:#EEEEEE;font-weight:bold;">Telefonos</span>
+                    <input id="txtPredio_Telefonos" name="txtPredio_Telefonos" type="text" class="form-control" placeholder="telefonos..."/>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-bottom:5px;">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="Casilla electronica" style="background:#EEEEEE;font-weight:bold;">Correo</span>
+                    <input id="txtPredio_Correo" name="txtPredio_Correo" type="text" class="form-control" placeholder="correo..."/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="box-body">
+                <div class="form-group" style="margin-bottom:5px;">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="Ubigeo Region" style="background:#EEEEEE;font-weight:bold;">Region</span>
+                    <select id="cboPredio_Region" name="cboPredio_Region" class="form-control selectpicker" onclick="javascript:Predio.comboProvincia();"></select>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-bottom:5px;">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="Ubigeo Provincia" style="background:#EEEEEE;font-weight:bold;">Provincia</span>
+                    <select id="cboPredio_Provincia" name="cboPredio_Provincia" class="form-control selectpicker" onclick="javascript:Predio.comboDistrito();"></select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="Ubigeo Distrito" style="background:#EEEEEE;font-weight:bold;">Distrito</span>
+                    <select id="cboPredio_Distrito" name="cboPredio_Distrito" class="form-control selectpicker"></select>
+                  </div>
+                </div>
+                <div id="divPredio_Sector" class="form-group" style="margin-bottom:5px;">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="telefonos" style="background:#EEEEEE;font-weight:bold;">Sector</span>
+                    <input id="txtPredio_Sector" name="txtPredio_Sector" type="text" class="form-control" placeholder="Dom/Sector......"/>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-bottom:5px;">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="telefonos" style="background:#EEEEEE;font-weight:bold;">Av./Jr./Calle</span>
+                    <input id="txtPredio_Calle" name="txtPredio_Calle" type="text" class="form-control" placeholder="Av./Jr./Calle..."/>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-bottom:5px;">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="telefonos" style="background:#EEEEEE;font-weight:bold;">Nro</span>
+                    <input id="txtPredio_Nro" name="txtPredio_Nro" type="text" class="form-control" placeholder="Nro..."/>
+                    <span class="input-group-addon" title="telefonos" style="background:#EEEEEE;font-weight:bold;">Dpto</span>
+                    <input id="txtPredio_Dpto" name="txtPredio_Dpto" type="text" class="form-control" placeholder="Dpto..."/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="telefonos" style="background:#EEEEEE;font-weight:bold;">Mza</span>
+                    <input id="txtPredio_Mza" name="txtPredio_Mza" type="text" class="form-control" placeholder="Mza..."/>
+                    <span class="input-group-addon" title="telefonos" style="background:#EEEEEE;font-weight:bold;">Lote</span>
+                    <input id="txtPredio_Lote" name="txtPredio_Lote" type="text" class="form-control" placeholder="Lote..."/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <textarea id="txtPredio_Observac" name="txtPredio_Observac" type="text" placeholder="Observaciones del predio..." cols="80" rows="6" style="width:100%;"></textarea>
+                </div>
+                <div class="box-body pull-right">
+                  <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fa fa-close"></i> Cerrar</button>
+                  <button id="btn_modPredioInsert" type="button" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Guardar</button>
+                  <button id="btn_modPredioUpdate" type="button" class="btn btn-info btn-sm"><i class="fa fa-save"></i> Actualizar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
