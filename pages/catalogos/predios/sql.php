@@ -539,7 +539,7 @@
         if(is_uploaded_file($archivo['tmp_name'])){
           if(mime_content_type($archivo["tmp_name"])=="application/pdf"){
             //acceso a la base de datos para registro del nombre
-            $qry = $db->query("select coalesce(max(id)+1,1) as maxi from predios_archivos");
+            $qry = $db->query_all("select coalesce(max(id)+1,1) as maxi from predios_archivos");
             $ID = reset($qry)["maxi"];
             $url = "data/archivos/".$data->predioID."_".$ID.".pdf";
             $params = [
