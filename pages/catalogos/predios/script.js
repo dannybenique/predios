@@ -478,7 +478,6 @@ async function modArchSubirPDF(){
       if (!resp.ok) { throw new Error(`Error en la respuesta del servidor: ${resp.statusText}`); }
       
       const data = await resp.json();
-      console.log(data);
       appPredioArchSetData(data);
       $("#modalArchivos").modal("hide");
     } catch(err){
