@@ -468,7 +468,7 @@ async function modArchSubirPDF(){
       exec.append("appSQL",JSON.stringify({ TipoQuery:"subirArchivos", predioID:$("#lbl_ID").html(), nombre:nombreArchivo }));
   
       const resp = await fetch(rutaSQL, { method:'POST', body:exec });
-      appPredioArchSetData(rpta);
+      appPredioArchSetData(resp);
       $("#modalArchivos").modal("hide");
     } catch(err){
       console.error("Error durante la operacion de FETCH",err);
