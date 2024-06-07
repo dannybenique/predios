@@ -542,11 +542,11 @@
               //acceso a la base de datos para registro del nombre
               $qry = $db->query_all("select coalesce(max(id)+1,1) as maxi from predios_archivos");
               $ID = reset($qry)["maxi"];
-              $url = "data/archivos/".$data->predioID."_".$ID.".pdf";
+              $url = "data/archivos/" . htmlspecialchars($data->predioID) . "_" . $ID . ".pdf";
               $params = [
                 ":id"=>$ID,
-                ":predioID"=>$data->predioID,
-                ":nombre"=>$data->nombre,
+                ":predioID"=>htmlspecialchars($data->predioID),
+                ":nombre"=>htmlspecialchars($data->nombre),
                 ":url"=>$url,
                 ":tipo"=>1,
                 ":estado"=>1,
@@ -557,13 +557,15 @@
 
               //guardar archivo en S.O.
               $ruta = "../../../".$url;
-              move_uploaded_file($archivo["tmp_name"],$ruta);
+              if(!move_uploaded_file($archivo["tmp_name"], $ruta)) {
+                throw new RuntimeException("Error al mover el archivo a su ubicación final.");
+              }
 
               //recoger data de archivos
               $rpta = $fn->getArchivos($data->predioID);
             } catch(Exception $e){
               error_log("Error en la subida del archivo PDF: " . $e->getMessage());
-              $rpta = null;
+              $rpta = ["error" => "Se produjo un error durante la subida del archivo."];
             }
           } else { $rpta = ["error" => "El archivo no es un PDF válido."]; }
         } else { $rpta = ["error" => "Error al subir el archivo."]; }
