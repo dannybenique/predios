@@ -538,31 +538,36 @@
         $archivo = $_FILES["filePDF"];
         if(is_uploaded_file($archivo['tmp_name'])){
           if(mime_content_type($archivo["tmp_name"])=="application/pdf"){
-            //acceso a la base de datos para registro del nombre
-            $qry = $db->query_all("select coalesce(max(id)+1,1) as maxi from predios_archivos");
-            $ID = reset($qry)["maxi"];
-            $url = "data/archivos/".$data->predioID."_".$ID.".pdf";
-            $params = [
-              ":id"=>$ID,
-              ":predioID"=>$data->predioID,
-              ":nombre"=>$data->nombre,
-              ":url"=>$url,
-              ":tipo"=>1,
-              ":estado"=>1,
-              ":sysuser"=>$_SESSION["usr_ID"]
-            ];
-            $sql = "insert into predios_archivos values(:id,:predioID,:nombre,:url,:tipo,:estado,:sysuser,now())";
-            $qry = $db->query_all($sql, $params);
+            try{
+              //acceso a la base de datos para registro del nombre
+              $qry = $db->query_all("select coalesce(max(id)+1,1) as maxi from predios_archivos");
+              $ID = reset($qry)["maxi"];
+              $url = "data/archivos/".$data->predioID."_".$ID.".pdf";
+              $params = [
+                ":id"=>$ID,
+                ":predioID"=>$data->predioID,
+                ":nombre"=>$data->nombre,
+                ":url"=>$url,
+                ":tipo"=>1,
+                ":estado"=>1,
+                ":sysuser"=>$_SESSION["usr_ID"]
+              ];
+              $sql = "insert into predios_archivos values(:id,:predioID,:nombre,:url,:tipo,:estado,:sysuser,now())";
+              $qry = $db->query_all($sql, $params);
 
-            //guardar archivo en S.O.
-            $ruta = "../../../".$url;
-            move_uploaded_file($archivo["tmp_name"],$ruta);
+              //guardar archivo en S.O.
+              $ruta = "../../../".$url;
+              move_uploaded_file($archivo["tmp_name"],$ruta);
 
-            //recoger data de archivos
-            $rpta = $fn->getArchivos($data->predioID);
-          } else { $rpta = null; }
-        } else { $rpta = null; }
-      } else { $rpta = null; }
+              //recoger data de archivos
+              $rpta = $fn->getArchivos($data->predioID);
+            } catch(Exception $e){
+              error_log("Error en la subida del archivo PDF: " . $e->getMessage());
+              $rpta = null;
+            }
+          } else { $rpta = ["error" => "El archivo no es un PDF válido."]; }
+        } else { $rpta = ["error" => "Error al subir el archivo."]; }
+      } else {  $rpta = ["error" => "No se ha proporcionado ningún archivo."]; }
 
       $db->enviarRespuesta($rpta);
       break;

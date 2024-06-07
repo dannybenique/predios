@@ -458,37 +458,31 @@ function appCheckOnOff(check,span,textbox){
 
 async function modArchSubirPDF(){
   let nombreArchivo = $("#txt_modArchNombre").val().trim();
-  if(nombreArchivo==""){
+  if(nombreArchivo===""){
     alert("!!!Falta el nombre del archivo!!!");
-  } else {
+    return;
+  }
+  
+  let archivoPDF = $('#file_modArchPDF')[0].files[0];
+  if (!archivoPDF) {
+    alert("!!!Falta seleccionar el archivo!!!");
+    return;
+  }
     try{
       let exec = new FormData();
 
-      exec.append('filePDF', $('#file_modArchPDF')[0].files[0]);
+      exec.append('filePDF', archivoPDF);
       exec.append("appSQL",JSON.stringify({ TipoQuery:"subirArchivos", predioID:$("#lbl_ID").html(), nombre:nombreArchivo }));
   
       const resp = await fetch(rutaSQL, { method:'POST', body:exec });
-      appPredioArchSetData(resp);
+      if (!resp.ok) { throw new Error(`Error en la respuesta del servidor: ${resp.statusText}`); }
+      
+      const data = await resp.json();
+      appPredioArchSetData(data);
       $("#modalArchivos").modal("hide");
     } catch(err){
       console.error("Error durante la operacion de FETCH",err);
+      alert("Error durante la operación de subida. Por favor, inténtelo de nuevo.");
       return null;
     }
-    
-
-    // let rpta = $.ajax({
-    //   url  : rutaSQL,
-    //   type : 'POST',
-    //   processData : false,
-    //   contentType : false,
-    //   data : exec
-    // })
-    // .fail(function(resp){
-    //   console.log("fail:.... "+resp.responseText);
-    // })
-    // .done(function(resp){
-    //   let rpta = JSON.parse(resp);
-      
-    // });
-  }
 }
