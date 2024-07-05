@@ -1,16 +1,13 @@
 sistema web para:
 
-* control de matriculas de un colegio
-* control de alumnos
-* control de padres
-* control de caja
+* control de predios de la MPS
 
 requerimientos:
 * nginx
 * php 8.2 fpm
 
 tips: 
-* el archivos de config de nginx se debe que de la siguiente forma
+* el archivos de config de nginx se tener la siguiente forma
 server{
     listen 80;
     server_name tu-dominio.com;
